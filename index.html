@@ -6,7 +6,45 @@
   <link rel="stylesheet" href="index.css">
   <title>Account Registration</title>
 </head>
-<body>
+<body class="body">
+  <dialog class="account-dialog">
+  <form class="account-form">
+    <fieldset class="account-fieldset">
+      <legend class="account-legend">Create new account</legend>
+        
+      <div class="label-container">
+        <label for="name" class="account-label"><span>Name</span></label>
+        <input id="name"
+          type="text" />
+      </div>
+        
+      <div class="label-container">
+        <label for="username" class="account-label"><span>Username</span></label>
+        <input id="username"
+          type="text" />
+      </div>  
+
+      <div class="label-container">
+        <label for="email" class="account-label"><span>Email</span></label>
+        <input id="email"
+          required
+          type="email" />
+      </div>
+
+      <div class="label-container">
+        <label for="password" class="account-label"><span>Password</span></label>
+        <input id="password" type="password" />
+      </div>
+
+      <div class="label-container">
+        <label for="confirm-password" class="account-label"><span>Confirm Password</span></label>
+        <input id="confirm-password" type="password" />
+      </div>
+
+      <button type="submit" class="create-account-btn">Send</button>
+    </fieldset>
+  </form> 
+  </dialog> 
   <script src="index.js"></script>
 </body>
 </html>

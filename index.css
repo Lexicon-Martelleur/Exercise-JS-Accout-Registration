@@ -1,0 +1,71 @@
+.body {
+    min-height: 100vh;
+}
+
+.account-form, .body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.account-form,
+.account-fieldset,
+.label-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.account-dialog {
+    width: 100%;
+    border: none;
+    box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px; 
+}
+
+@media (min-width: 900px) {
+    .account-dialog {    
+        width: 50%;
+    }
+}
+
+.account-legend {
+    text-transform: uppercase;
+}
+
+.account-fieldset {
+    box-sizing: border-box;
+    width: 100%;
+    padding: 2rem 1rem 1rem 1rem;
+    gap: 1.5rem;
+}
+
+.account-label span::after {
+    content: ":";
+}
+
+.label-container input {
+    padding-block: 0.5rem;
+    font-size: 1.1rem;
+    border: none;
+    border-bottom: 1px solid black;
+}
+
+.label-container input:focus,
+.label-container input:focus-visible {
+    border: none;
+    outline: none;
+    font-weight: 600;
+    border-bottom: 2px solid black;
+}
+
+.label-container:focus-within {
+    font-weight: bolder;
+}
+
+.create-account-btn {
+    padding: 0.5rem;
+}
+
+.create-account-btn:hover {
+    font-weight: bolder;
+    cursor: pointer;
+}
