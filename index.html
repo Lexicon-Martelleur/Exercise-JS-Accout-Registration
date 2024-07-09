@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="index.css">
+  <link rel="stylesheet" href="./style/index.css">
   <title>Account Registration</title>
 </head>
 <body class="body">
@@ -15,36 +15,49 @@
       <div class="label-container">
         <label for="name" class="account-label"><span>Name</span></label>
         <input id="name"
-          type="text" />
+          type="text"
+          required
+          autofocus />
       </div>
         
       <div class="label-container">
         <label for="username" class="account-label"><span>Username</span></label>
         <input id="username"
-          type="text" />
+          type="text"
+          required />
       </div>  
 
       <div class="label-container">
         <label for="email" class="account-label"><span>Email</span></label>
         <input id="email"
-          required
-          type="email" />
+          type="email"
+          required />
       </div>
 
       <div class="label-container">
         <label for="password" class="account-label"><span>Password</span></label>
-        <input id="password" type="password" />
+        <input id="password"
+          type="password"
+          required
+          minlength=8 />
       </div>
 
       <div class="label-container">
         <label for="confirm-password" class="account-label"><span>Confirm Password</span></label>
-        <input id="confirm-password" type="password" />
+        <input id="confirm-password"
+          type="password"
+          required
+          minlength=8 />
       </div>
 
-      <button type="submit" class="create-account-btn">Send</button>
+      <button type="submit"
+        disabled
+        class="create-account-btn">
+        Send
+      </button>
     </fieldset>
   </form> 
   </dialog> 
-  <script src="index.js"></script>
+  <script type="module" src="./js/index.js"></script>
 </body>
 </html>
