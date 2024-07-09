@@ -95,6 +95,9 @@ function checkAndHandleFormValidityState (
     if (confirmPwd.isEqual(pwd) && isValidState) {
         displayPasswordInputState(true);
         displayAccountBtnState(true);
+    } else if (confirmPwd.isEqual(pwd) && !isValidState) {
+        displayPasswordInputState(true);
+        displayAccountBtnState(false);
     } else {
         displayPasswordInputState(false);
         displayAccountBtnState(false);
