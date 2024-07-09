@@ -29,8 +29,10 @@ accountInputsWithoutPwdInputs.forEach(input => {
 
         checkAndHandleFormValidityState([
             ...accountInputsWithoutPwdInputs,
-            ...accountPwdInputs
-        ]);
+            ...accountPwdInputs],
+            pwdInput,
+            confirmPwdInput
+        )
     });
 });
 
@@ -48,16 +50,12 @@ accountPwdInputs.forEach(input => {
 
         checkAndHandleFormValidityState([
             ...accountInputsWithoutPwdInputs,
-            ...accountPwdInputs
-        ]);
-
-        checkAndHandleFormPasswordValidityState(
+            ...accountPwdInputs],
             pwdInput,
             confirmPwdInput
         )
     });
 });
-
 
 accountForm.addEventListener("submit", event => {
     event.preventDefault();
@@ -75,16 +73,17 @@ accountForm.addEventListener("submit", event => {
 });
 
 /**
- * Utility functions
- */
-
-/**
  * Used to update form display for valid and invalid
- * state, e.g., disable or enable submit button.
- * 
- * @param {HTMLInputElement[]} inputs 
+ * password state, e.g., disable or enable submit button.
+ * @param {HTMLInputElement[]} inputs
+ * @param {HTMLInputElement} pwdInput 
+ * @param {HTMLInputElement} confirmPwdInput 
  */
-function checkAndHandleFormValidityState (inputs) {
+function checkAndHandleFormValidityState (
+    inputs, pwdInput, confirmPwdInput
+) {
+    const pwd = new Password(pwdInput.value);
+    const confirmPwd = new Password(confirmPwdInput.value);
     let isValidState = true;
     for(let i = 0; i < inputs.length; i++) {
         if (!inputs[i].checkValidity()) {
@@ -92,25 +91,8 @@ function checkAndHandleFormValidityState (inputs) {
             break;
         }
     }
-    if (isValidState) {
-        displayAccountBtnState(true);
-    } else {
-        displayAccountBtnState(false);
-    }
-}
 
-/**
- * Used to update form display for valid and invalid
- * password state, e.g., disable or enable submit button.
- * @param {HTMLInputElement} pwdInput 
- * @param {HTMLInputElement} confirmPwdInput 
- */
-function checkAndHandleFormPasswordValidityState (
-    pwdInput, confirmPwdInput
-) {
-    const pwd = new Password(pwdInput.value);
-    const confirmPwd = new Password(confirmPwdInput.value);
-    if (confirmPwd.isEqual(pwd)) {
+    if (confirmPwd.isEqual(pwd) && isValidState) {
         displayPasswordInputState(true);
         displayAccountBtnState(true);
     } else {
