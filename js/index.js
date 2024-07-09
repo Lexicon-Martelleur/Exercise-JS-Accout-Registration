@@ -7,6 +7,7 @@ import {
 /**
  * Form elements.
  */
+
 const accountDialog = document.querySelector(".account-dialog");
 const accountForm = document.querySelector(".account-form");
 const pwdInput = document.querySelector("#password");
