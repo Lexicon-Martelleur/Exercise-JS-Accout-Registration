@@ -1,4 +1,8 @@
-import { Password } from "./password.js";
+import {
+    Password,
+    isForbiddenPwdCharacters,
+    removeForbiddenPwdCharacters
+} from "./password.js";
 
 /**
  * Form elements.
@@ -8,39 +12,51 @@ const accountForm = document.querySelector(".account-form");
 const pwdInput = document.querySelector("#password");
 const confirmPwdInput = document.querySelector("#confirm-password");
 const createAccountBtn = document.querySelector(".create-account-btn");
-const accountInputs = document.querySelectorAll(".account-form input");
+const accountInputsWithoutPwdInputs = document.querySelectorAll(".account-form input:not([type=password])");
+const accountPwdInputs = document.querySelectorAll(".account-form input[type=password]");
 accountDialog.showModal();
 
 /**
  * Form eventlisteners.
  */
-[pwdInput, confirmPwdInput].forEach(input => {
-    input.addEventListener("input", _ => {
-        const pwd = new Password(pwdInput.value);
-        const confirmPwd = new Password(confirmPwdInput.value);
-        if (confirmPwd.isEqual(pwd)) {
-            displayAccountBtnState(true);
-            displayPasswordInputState(true);
-        } else {
-            displayAccountBtnState(false);
-            displayPasswordInputState(false);
-        }
-    });
-});
 
-accountInputs.forEach(input => {
-    input.addEventListener("input", _ => {
-        if (!(accountForm instanceof HTMLInputElement)) {
+accountInputsWithoutPwdInputs.forEach(input => {
+    input.addEventListener("input", event => {
+        if (!(event.target instanceof HTMLInputElement)) {
             return;
         }
 
-        if (accountForm.reportValidity()) {
-            createAccountBtn.removeAttribute("disabled");
-        } else {
-            createAccountBtn.setAttribute("disabled", "");
-        }
+        checkAndHandleFormValidityState([
+            ...accountInputsWithoutPwdInputs,
+            ...accountPwdInputs
+        ]);
     });
 });
+
+accountPwdInputs.forEach(input => {    
+    input.addEventListener("input", event => {
+        if (!(event.target instanceof HTMLInputElement)) {
+            return;
+        }
+        
+        if (isForbiddenPwdCharacters(event.data)) {
+            event.target.value = removeForbiddenPwdCharacters(
+                event.target.value
+            );
+        }
+
+        checkAndHandleFormValidityState([
+            ...accountInputsWithoutPwdInputs,
+            ...accountPwdInputs
+        ]);
+
+        checkAndHandleFormPasswordValidityState(
+            pwdInput,
+            confirmPwdInput
+        )
+    });
+});
+
 
 accountForm.addEventListener("submit", event => {
     event.preventDefault();
@@ -60,6 +76,47 @@ accountForm.addEventListener("submit", event => {
 /**
  * Utility functions
  */
+
+/**
+ * Used to update form display for valid and invalid
+ * state, e.g., disable or enable submit button.
+ * 
+ * @param {HTMLInputElement[]} inputs 
+ */
+function checkAndHandleFormValidityState (inputs) {
+    let isValidState = true;
+    for(let i = 0; i < inputs.length; i++) {
+        if (!inputs[i].checkValidity()) {
+            isValidState = false;
+            break;
+        }
+    }
+    if (isValidState) {
+        displayAccountBtnState(true);
+    } else {
+        displayAccountBtnState(false);
+    }
+}
+
+/**
+ * Used to update form display for valid and invalid
+ * password state, e.g., disable or enable submit button.
+ * @param {HTMLInputElement} pwdInput 
+ * @param {HTMLInputElement} confirmPwdInput 
+ */
+function checkAndHandleFormPasswordValidityState (
+    pwdInput, confirmPwdInput
+) {
+    const pwd = new Password(pwdInput.value);
+    const confirmPwd = new Password(confirmPwdInput.value);
+    if (confirmPwd.isEqual(pwd)) {
+        displayPasswordInputState(true);
+        displayAccountBtnState(true);
+    } else {
+        displayPasswordInputState(false);
+        displayAccountBtnState(false);
+    }
+}
 
 /**
  * Used to display the state of form account button. 

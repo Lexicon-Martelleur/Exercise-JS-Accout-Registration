@@ -71,6 +71,11 @@
     padding: 0.5rem;
 }
 
+.create-account-btn:disabled {
+    cursor: default !important;
+    font-weight: normal;
+}
+
 .create-account-btn:hover {
     font-weight: bolder;
     cursor: pointer;
