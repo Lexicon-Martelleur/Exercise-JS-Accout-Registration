@@ -10,7 +10,7 @@
 
 .account-form,
 .account-fieldset,
-.label-container {
+.input-container {
     display: flex;
     flex-direction: column;
 }
@@ -42,7 +42,13 @@
     content: ":";
 }
 
-.label-container input {
+.input-container {
+    position: relative;
+    top: 0;
+    left: 0;
+}
+
+.input-container input {
     padding-block: 0.5rem;
     font-size: 1.1rem;
     border: none;
@@ -50,8 +56,8 @@
     border-bottom: 1px solid black;
 }
 
-.label-container input:focus,
-.label-container input:focus-visible {
+.input-container input:focus,
+.input-container input:focus-visible {
     border: none;
     outline: none;
     font-weight: 600;
@@ -59,11 +65,11 @@
     background-color: hsl(0, 0%, 0%, 0.1);
 }
 
-.label-container input:invalid {
+.input-container input:invalid {
     border-bottom: 2px solid red;
 }
 
-.label-container:focus-within {
+.input-container:focus-within {
     font-weight: bolder;
 }
 
@@ -83,4 +89,21 @@
 
 .invalid-input {
     border-bottom: 2px solid red !important;
+}
+
+.view-password img {
+    position: absolute;
+    right: 0.5rem;
+    bottom: 0.5rem;
+    width: 1.4rem;
+    transition: all 0.3s;
+}
+
+.view-password img:hover {
+    cursor: pointer;
+    transform: scale(1.2); 
+}
+
+.hide {
+    display: none !important;
 }

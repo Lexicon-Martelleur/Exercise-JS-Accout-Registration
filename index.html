@@ -12,7 +12,7 @@
     <fieldset class="account-fieldset">
       <legend class="account-legend">Create new account</legend>
         
-      <div class="label-container">
+      <div class="input-container">
         <label for="name" class="account-label"><span>Name</span></label>
         <input id="name"
           type="text"
@@ -20,21 +20,21 @@
           autofocus />
       </div>
         
-      <div class="label-container">
+      <div class="input-container">
         <label for="username" class="account-label"><span>Username</span></label>
         <input id="username"
           type="text"
           required />
       </div>  
 
-      <div class="label-container">
+      <div class="input-container">
         <label for="email" class="account-label"><span>Email</span></label>
         <input id="email"
           type="email"
           required />
       </div>
 
-      <div class="label-container">
+      <div class="input-container">
         <label for="password" class="account-label"><span>Password</span></label>
         <input id="password"
           type="password"
@@ -42,13 +42,23 @@
           minlength=8 />
       </div>
 
-      <div class="label-container">
+      <div class="input-container">
         <label for="confirm-password" class="account-label"><span>Confirm Password</span></label>
         <input id="confirm-password"
           type="password"
           required
           minlength=8 />
+        <div class="view-password">
+          <img src="./icons/visibility.svg"
+            alt="Show confirmed password"
+            title="Show confirmed password">
+          <img src="./icons/visibility_off.svg"
+            class="hide"
+            alt="Hide confirmed password"
+            title="Hide confirmed password">
+        </div>
       </div>
+      
 
       <button type="submit"
         disabled

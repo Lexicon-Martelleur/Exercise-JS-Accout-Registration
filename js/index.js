@@ -15,15 +15,26 @@ const confirmPwdInput = document.querySelector("#confirm-password");
 const createAccountBtn = document.querySelector(".create-account-btn");
 const accountInputsWithoutPwdInputs = document.querySelectorAll(".account-form input:not([type=password])");
 const accountPwdInputs = document.querySelectorAll(".account-form input[type=password]");
+const viewConfirmedPassword = document.querySelector(".view-password");
 accountDialog.showModal();
 
 /**
  * Form eventlisteners.
  */
 
+viewConfirmedPassword.addEventListener("click", event => {
+    [...event.currentTarget.children].forEach(element => {
+        element instanceof HTMLElement && element.classList.toggle(["hide"]);
+        console.log(confirmPwdInput.getAttribute("type"));
+    })
+    confirmPwdInput.getAttribute("type") === "password"
+        ? confirmPwdInput.setAttribute("type", "text")
+        : confirmPwdInput.setAttribute("type", "password");
+})
+
 accountInputsWithoutPwdInputs.forEach(input => {
     input.addEventListener("input", event => {
-        if (!(event.target instanceof HTMLInputElement)) {
+        if (!(event.currentTarget instanceof HTMLInputElement)) {
             return;
         }
 
@@ -38,13 +49,13 @@ accountInputsWithoutPwdInputs.forEach(input => {
 
 accountPwdInputs.forEach(input => {    
     input.addEventListener("input", event => {
-        if (!(event.target instanceof HTMLInputElement)) {
+        if (!(event.currentTarget instanceof HTMLInputElement)) {
             return;
         }
         
         if (isForbiddenPwdCharacters(event.data)) {
-            event.target.value = removeForbiddenPwdCharacters(
-                event.target.value
+            event.currentTarget.value = removeForbiddenPwdCharacters(
+                event.currentTarget.value
             );
         }
 
@@ -64,11 +75,11 @@ accountForm.addEventListener("submit", event => {
     }
 
     console.log({
-        name: event.target.querySelector("#name"),
-        userName: event.target.querySelector("#username"),
-        email: event.target.querySelector("#email"),
-        pwd: event.target.querySelector("#password"),
-        pwdConfirm: event.target.querySelector("#confirm-password"),
+        name: event.currentTarget.querySelector("#name").value,
+        userName: event.currentTarget.querySelector("#username").value,
+        email: event.currentTarget.querySelector("#email").value,
+        pwd: event.currentTarget.querySelector("#password").value,
+        pwdConfirm: event.currentTarget.querySelector("#confirm-password").value,
     });
 });
 
