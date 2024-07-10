@@ -22,29 +22,6 @@ accountDialog.showModal();
  * Form eventlisteners.
  */
 
-viewPasswords.forEach(viewPasswordElement => {
-    viewPasswordElement.addEventListener("click", event => {
-        [...event.currentTarget.children].forEach(element => {
-            element instanceof HTMLElement && element.classList.toggle(["hide"]);
-        })
-
-        if (event.currentTarget instanceof HTMLElement &&
-            [...event.currentTarget.parentElement.children].includes(confirmPwdInput)) {
-            confirmPwdInput.getAttribute("type") === "password"
-                ? confirmPwdInput.setAttribute("type", "text")
-                : confirmPwdInput.setAttribute("type", "password");
-        }
-    
-        if (event.currentTarget instanceof HTMLElement &&
-            [...event.currentTarget.parentElement.children].includes(pwdInput)) {
-            pwdInput.getAttribute("type") === "password"
-                ? pwdInput.setAttribute("type", "text")
-                : pwdInput.setAttribute("type", "password");
-        }
-    })    
-});
-
-
 accountInputsWithoutPwdInputs.forEach(input => {
     input.addEventListener("input", event => {
         if (!(event.currentTarget instanceof HTMLInputElement)) {
@@ -96,9 +73,32 @@ accountForm.addEventListener("submit", event => {
     });
 });
 
+viewPasswords.forEach(viewPasswordElement => {
+    viewPasswordElement.addEventListener("click", event => {
+        [...event.currentTarget.children].forEach(element => {
+            element instanceof HTMLElement && element.classList.toggle(["hide"]);
+        })
+
+        if (event.currentTarget instanceof HTMLElement &&
+            [...event.currentTarget.parentElement.children].includes(confirmPwdInput)) {
+            confirmPwdInput.getAttribute("type") === "password"
+                ? confirmPwdInput.setAttribute("type", "text")
+                : confirmPwdInput.setAttribute("type", "password");
+        }
+    
+        if (event.currentTarget instanceof HTMLElement &&
+            [...event.currentTarget.parentElement.children].includes(pwdInput)) {
+            pwdInput.getAttribute("type") === "password"
+                ? pwdInput.setAttribute("type", "text")
+                : pwdInput.setAttribute("type", "password");
+        }
+    })    
+});
+
 /**
- * Used to update form display for valid and invalid
- * password state, e.g., disable or enable submit button.
+ * Used to update form display style for valid and invalid
+ * state and password equality state, e.g., disable or enable
+ * submit button.
  * @param {HTMLInputElement[]} inputs
  * @param {HTMLInputElement} pwdInput 
  * @param {HTMLInputElement} confirmPwdInput 
