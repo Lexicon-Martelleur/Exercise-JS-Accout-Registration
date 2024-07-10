@@ -15,22 +15,35 @@ const confirmPwdInput = document.querySelector("#confirm-password");
 const createAccountBtn = document.querySelector(".create-account-btn");
 const accountInputsWithoutPwdInputs = document.querySelectorAll(".account-form input:not([type=password])");
 const accountPwdInputs = document.querySelectorAll(".account-form input[type=password]");
-const viewConfirmedPassword = document.querySelector(".view-password");
+const viewPasswords = document.querySelectorAll(".view-password");
 accountDialog.showModal();
 
 /**
  * Form eventlisteners.
  */
 
-viewConfirmedPassword.addEventListener("click", event => {
-    [...event.currentTarget.children].forEach(element => {
-        element instanceof HTMLElement && element.classList.toggle(["hide"]);
-        console.log(confirmPwdInput.getAttribute("type"));
-    })
-    confirmPwdInput.getAttribute("type") === "password"
-        ? confirmPwdInput.setAttribute("type", "text")
-        : confirmPwdInput.setAttribute("type", "password");
-})
+viewPasswords.forEach(viewPasswordElement => {
+    viewPasswordElement.addEventListener("click", event => {
+        [...event.currentTarget.children].forEach(element => {
+            element instanceof HTMLElement && element.classList.toggle(["hide"]);
+        })
+
+        if (event.currentTarget instanceof HTMLElement &&
+            [...event.currentTarget.parentElement.children].includes(confirmPwdInput)) {
+            confirmPwdInput.getAttribute("type") === "password"
+                ? confirmPwdInput.setAttribute("type", "text")
+                : confirmPwdInput.setAttribute("type", "password");
+        }
+    
+        if (event.currentTarget instanceof HTMLElement &&
+            [...event.currentTarget.parentElement.children].includes(pwdInput)) {
+            pwdInput.getAttribute("type") === "password"
+                ? pwdInput.setAttribute("type", "text")
+                : pwdInput.setAttribute("type", "password");
+        }
+    })    
+});
+
 
 accountInputsWithoutPwdInputs.forEach(input => {
     input.addEventListener("input", event => {
